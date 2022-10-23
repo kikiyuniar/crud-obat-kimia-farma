@@ -15,8 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return redirect()->route('dashboard');
+});
+
 Route::post('action-login',[AuthController::class,'actionLogin'])->name('action.login');
 Route::get('register',[AuthController::class,'viewRegister'])->name('view.register');
+Route::post('action-register',[AuthController::class,'actionRegister'])->name('action.register');
 Route::post('action-register',[AuthController::class,'actionRegister'])->name('action.register');
 
 Route::middleware(['guest'])->group(function () {
