@@ -1,5 +1,5 @@
 @extends('master.core')
-@section('title','Form Data Obat')
+@section('title','Form Edit Obat')
 @section('link')
 @endsection
 @section('content')
@@ -40,25 +40,32 @@
                                 </ul>
                             </div>
                         @endif
-                        <form class="form" action="{{ route('action.drugs') }}" method="POST" enctype="multipart/form-data">
+                        <form class="form" action="{{ route('action.edit.drugs') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-13">
-                                <h1 class="mb-3">Tambah Obat</h1>
+                                <h1 class="mb-3">Edit Obat</h1>
                             </div>
+                            <input type="text" name="id" value="{{ $data->id }}" hidden>
+                            <input type="text" name="id_user" value="{{ $data->id_user }}" hidden>
+                            
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="image-input image-input-empty mb-3" data-kt-image-input="true" style="background-image: url(/assets/media/svg/avatars/blank.svg)">
-                                        <div class="image-input-wrapper w-125px h-125px"></div>
-                                        <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Change images">
-                                            <i class="bi bi-pencil-fill fs-7"></i>
-                                            <input type="file" name="images_obat" accept=".png, .jpg, .jpeg" />
+                                    <img class="mb-3" width="20%" src="{{ asset('Foto Obat') }}/{{ $data->images_obat }}" alt="{{ $data->images_obat }}">                                    
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">Ubah Foto</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Kolom Wajib Diisi"></i>
                                         </label>
-                                        <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Cancel avatar">
-                                            <i class="bi bi-x fs-2"></i>
-                                        </span>
-                                        <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Remove avatar">
-                                            <i class="bi bi-x fs-2"></i>
-                                        </span>
+                                        <input class="form-control" type="file" name="images_obat" accept=".png, .jpg, .jpeg">
+                                    </div>
+
+                                    <div class="d-flex flex-column mb-8 fv-row">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                            <span class="required">Nama Entri Data</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Kolom Wajib Diisi"></i>
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"  placeholder="Masukkan Nama Obat" value="{{ $data->user->name }}" disabled/>
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
@@ -66,31 +73,27 @@
                                             <span class="required">Nama Obat</span>
                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Kolom Wajib Diisi"></i>
                                         </label>
-                                        <input type="text" class="form-control form-control-solid"  placeholder="Masukkan Nama Obat" name="name_obat"/>
+                                        <input type="text" class="form-control form-control-solid"  placeholder="Masukkan Nama Obat" name="name_obat" value="{{ $data->name_obat }}"/>
                                     </div>
-
-                                    <input type="text" value="{{ Auth::user()->id }}" name="id_user" hidden>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">Tanggal Obat Dibuat</span>
                                         </label>
-                                        <input class="form-control form-control-solid" id="tanggal_dibuat" placeholder="Pilih Tanggal Obat Dibuat" name="tgl_dibuat"/>
+                                        <input class="form-control form-control-solid" id="tanggal_dibuat" placeholder="Pilih Tanggal Obat Dibuat" name="tgl_dibuat" value="{{ $data->tgl_dibuat }}"/>
                                     </div>
 
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">Tanggal Obat Kadaluarsa</span>
                                         </label>
-                                        <input class="form-control form-control-solid" id="tanggal_kadaluarsa" placeholder="Pilih Tanggal Obat Kadaluarsa" name="tgl_kadaluarsa"/>
+                                        <input class="form-control form-control-solid" id="tanggal_kadaluarsa" placeholder="Pilih Tanggal Obat Kadaluarsa" name="tgl_kadaluarsa" value="{{ $data->tgl_kadaluarsa }}"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">
-                                    <span class="indicator-label">
-                                        Tambah 
-                                </button>
+                                <a href="{{ route('drugs') }}" class="btn btn-danger">Cancel</a>
+                                <button type="submit" class="btn btn-primary">Edit</button>
                             </div>
                         </form>
                     </div>

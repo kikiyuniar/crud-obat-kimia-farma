@@ -122,15 +122,10 @@
 												</div>
 												
 												<!--begin::Username-->
-												{{-- <div class="flex-column">
+												<div class="flex-column">
 													<div class="fw-bold d-flex align-items-center fs-5">{{ Auth::user()->name }}</div>
-													<div class="badge badge-light-success fw-bold fs-8">{{ Auth::user()->role }}</div>
-												</div> --}}
+												</div>
 											</div>
-										</div>
-										<div class="separator my-2"></div>
-										<div class="menu-item px-5">
-											<a href="#" class="menu-link px-5">My Profile</a>
 										</div>
 										<div class="separator my-2"></div>
 										<div class="menu-item px-5">
@@ -175,7 +170,7 @@
 											</span>
 											<span class="pulse-ring"></span>
 										</a>
-										<a href="#">
+										<a href="{{ route('dashboard') }}">
 										  <span class="menu-title text-white">Dashboards</span>
 										</a>
 									</div>
@@ -186,7 +181,7 @@
                                     </div>
 
                                     <div class="menu-item here show menu-accordion">
-                                        <a href="{{ route('drugs') }}" class="menu-link">
+                                        <a href="{{ route('drugs') }}" class="menu-link {{ Request::routeIs(['drugs','add.drugs','edit.drugs']) ? 'active' : '' }}">
                                             <span class="menu-icon">
                                                 <i class="bi bi-calendar-check"></i>
                                             </span>
@@ -199,7 +194,7 @@
 						</div>
 
 						<div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
-							<a style="background-color: #f1416c; color: white" href="" class="btn flex-center btn-custom btn-danger px-0 h-40px w-100">
+							<a style="background-color: #f1416c; color: white" href="{{ route('logout') }}" class="btn flex-center btn-custom btn-danger px-0 h-40px w-100">
 								<span class="btn-label">Keluar</span>
 								<span class="svg-icon btn-icon svg-icon-2 m-0">
 									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

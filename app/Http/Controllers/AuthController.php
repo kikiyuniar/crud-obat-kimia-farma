@@ -17,44 +17,24 @@ class AuthController extends Controller
     public function actionLogin(Request $request)
     {
         $input = $request->all();
-        if ($input['email']) {
-            if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
-                $role = Auth::user()->user_role->pluck('id_role')->toArray();
-                    return redirect()->route('admin.list-itr');
-            }else{
-                return response()->json([
-                    'success' => false,
-                    'redirect' => route('login')
-                ]);
+        if ($request->username) {
+            if (Auth::attempt(['email' => $request->username, 'password' => $request->password])) {
+                return redirect('dashboard');
             }
         }
-        $fieldType = filter_var($input['nik'], FILTER_VALIDATE_EMAIL) ? 'nik' : 'username';
-        if(Auth::attempt(array($fieldType => $input['nik'], 'password' => $input['password'])))
+        $fieldType = filter_var($input['username'], FILTER_VALIDATE_EMAIL) ? 'username' : 'username';
+        if(Auth::attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
-            $role = Auth::user()->user_role->pluck('id_role')->toArray();
-
-            if (in_array('1', $role)) {
-                return response()->json([
-                    'success' => true,
-                    'redirect' => route('admin.list-itr')
-                ]);
-            }else if (in_array('9', $role)) {
-                return response()->json([
-                    'success' => true,
-                    'redirect' => route('user.home')
-                ]);
-            }else{
-                return response()->json([
-                    'success' => true,
-                    'redirect' => route('login')
-                ]);
-            }
+            return redirect('dashboard');
         }else{
-            return response()->json([
-                'success' => false,
-                'redirect' => route('login')
-            ]);
+            return redirect()->back()->with('danger', 'Email/Password Salah ');
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 
     public function viewRegister(Request $request)
